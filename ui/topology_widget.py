@@ -1344,6 +1344,9 @@ class TopologyView(QGraphicsView):
             if edge._handle is not None and edge._handle.scene() is not None:
                 self._scene.removeItem(edge._handle)
         self._edges.clear()
+        # 清除节点旧边引用，避免残留已销毁的边导致拖拽卡顿
+        for _node in self._nodes.values():
+            _node._connected_edges.clear()
         self._drag_link_line = None
         self._drag_link_src = None
         self._drag_linking = False
