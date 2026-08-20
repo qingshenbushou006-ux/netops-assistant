@@ -1,0 +1,9 @@
+name,ip,port,protocol,vendor,model,username,password,location,tags,serial_port,baud_rate,data_bits,parity,stop_bits,flow_control
+核心交换机A,10.1.1.1,22,ssh,Huawei,S5735,admin,Admin@123,主机房,核心,,,,,,
+核心交换机B,10.1.1.2,22,ssh,Huawei,S5735,admin,Admin@123,主机房,核心,,,,,,
+汇聚交换机1,10.1.2.1,22,ssh,H3C,S5130,admin,admin123,1楼机房,汇聚,,,,,,
+汇聚交换机2,10.1.2.2,22,ssh,H3C,S5130,admin,admin123,2楼机房,汇聚,,,,,,
+防火墙,10.1.0.1,22,ssh,Huawei,USG6320,admin,Admin@123,主机房,防火墙,,,,,,
+路由器,10.1.0.2,22,ssh,Cisco,ISR4331,cisco,cisco123,主机房,路由器,,,,,,
+Web服务器,192.168.1.100,22,ssh,Linux,Ubuntu,root,root123,云平台,服务器,,,,,,
+接入交换机Console,,22,serial,Huawei,S5735,,,弱电间,串口,COM3,9600,8,N,1,none

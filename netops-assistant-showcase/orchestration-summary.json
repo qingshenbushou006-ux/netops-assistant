@@ -1,0 +1,135 @@
+{
+  "project": {
+    "name": "NetOps Assistant 产品展示",
+    "path": "c:\\Users\\luowanshun\\Desktop\\netops-assistant-v1.1\\netops-assistant\\netops-assistant-showcase",
+    "operation": "create",
+    "deviceType": "desktop",
+    "language": "zh-CN",
+    "dashboardMode": false,
+    "replicationMode": null,
+    "sourceUrl": null,
+    "visualSpecExcerpt": null,
+    "styleDefinitionBrief": "B2B网络运维工具展示页, 冷调teal主色 + 深灰衬底, Inter + Noto Sans SC, 工具型产品节奏, 简洁克制",
+    "designRead": "B2B tool showcase / network engineers / calm utilitarian trust / medium density / avoid purple neon AI hero",
+    "designDials": {
+      "layoutVariance": 2,
+      "motionIntensity": 2,
+      "visualDensity": 3
+    },
+    "styleContinuityAnchors": {
+      "colorSystem": {
+        "primaryColorRole": "teal #0f766e used for primary CTA, section accents, and icon highlights",
+        "brandHuePolicy": "single teal brand hue; identities/categories use neutral or primary tints",
+        "stateColors": "semantic success/warning/error/info tokens"
+      },
+      "shapeSystem": "restrained radius: 4/8/12/9999px max",
+      "typographySystem": "Inter + Noto Sans SC sans-serif stack",
+      "spacingSystem": "8px base grid",
+      "componentLanguage": "clean card-based layout with subtle borders",
+      "surfaceAndDepth": "border-first static surfaces, shadow alpha <= 0.05",
+      "imageryAndIconography": "SVG icons + 1 hero illustration",
+      "interactionTone": "minimal hover feedback"
+    },
+    "specsConstraints": null,
+    "sharedProjectShellContract": {
+      "navigationShell": "sticky top nav with logo + anchor links",
+      "primaryColorSystem": "teal #0f766e",
+      "typographySystem": "Inter + Noto Sans SC",
+      "radiusScale": "4/8/12/9999px",
+      "surfaceDepthModel": "border-first, shadow alpha <= 0.05",
+      "ctaStyle": "rounded-lg teal bg, white text, subtle hover lift",
+      "alignmentRules": "centered container, max-w-6xl"
+    },
+    "generationTree": {
+      "root": {
+        "nodeId": "gen-project-shell",
+        "kind": "project-shell",
+        "pageIds": ["page-showcase"],
+        "output": "partials/project-shell.html",
+        "sharedRegions": ["nav", "footer"],
+        "privateRegions": [],
+        "mutableSlots": [],
+        "status": "planned",
+        "children": [
+          {
+            "nodeId": "gen-page-showcase",
+            "kind": "page-leaf",
+            "pageIds": ["page-showcase"],
+            "output": "pages/showcase.html",
+            "sharedRegions": [],
+            "privateRegions": ["hero", "features", "demo", "download", "contact"],
+            "mutableSlots": [],
+            "status": "planned",
+            "children": []
+          }
+        ]
+      }
+    }
+  },
+  "designSource": {
+    "operatingMode": "free-explore",
+    "libraryIdentity": null,
+    "libraryPath": null,
+    "cssFilePath": "c:\\Users\\luowanshun\\Desktop\\netops-assistant-v1.1\\netops-assistant\\netops-assistant-showcase\\colors_and_type.css",
+    "brandPrefix": "",
+    "themeMode": "light",
+    "designDecisionSummary": "Teal primary #0f766e, clean sans-serif, restrained radius, border-first depth",
+    "componentContractKind": null,
+    "forbiddenInventedComponents": [],
+    "allowedComponents": [],
+    "styleConstraints": {
+      "radiusMax": 12,
+      "spacingBase": 8,
+      "fontSizeBody": 15,
+      "fontSizeMin": 12,
+      "controlHeightDefault": 36,
+      "controlHeightLarge": 44
+    },
+    "productContext": {
+      "kitType": null,
+      "productType": "B2B network operations tool"
+    },
+    "actualTokenNameReference": []
+  },
+  "pages": [
+    {
+      "nodeId": "page-showcase",
+      "slug": "showcase",
+      "title": "NetOps Assistant 产品展示",
+      "htmlSrc": "pages/showcase.html",
+      "pageIndex": 1,
+      "stateGroupId": null,
+      "stateRole": null,
+      "baseStatePageId": null,
+      "sharedShellContract": [],
+      "mutableRegions": [],
+      "derivedFromHtmlSrc": null,
+      "derivationType": "original",
+      "sourcePageId": null,
+      "sourceHtmlSrc": null,
+      "pageType": "showcase",
+      "businessScenario": "Product showcase landing page for NetOps Assistant",
+      "visualNorthStar": "Clean, trustworthy tool showcase with teal accent on white, strong feature cards, and clear download CTA",
+      "compositionPattern": "Hero → Feature grid → Demo preview → Download → Contact footer",
+      "continuityAnchors": ["teal accent color", "border-first card style", "Inter typography"],
+      "libraryRestraintMode": false,
+      "uiKitPath": null,
+      "componentPlan": [],
+      "imagePlan": ["hero-illustration.jpg"],
+      "chartsRequired": false,
+      "miniProgramStyle": false,
+      "qualityRisks": []
+    }
+  ],
+  "assets": [
+    {
+      "filename": "hero-illustration.jpg",
+      "role": "critical-hero",
+      "owningPage": "showcase",
+      "semanticDescription": "Hero illustration for network operations dashboard",
+      "status": "planned"
+    }
+  ],
+  "wiringPlan": [],
+  "hiddenInteractionPlan": []
+}

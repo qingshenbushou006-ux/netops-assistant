@@ -1,0 +1,33 @@
+{
+  "data": [
+    {
+      "id": "page-showcase",
+      "title": "NetOps Assistant 产品展示",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1782787000000,
+      "devMetadata": {
+        "htmlSrc": "pages/showcase.html",
+        "interactions": []
+      },
+      "canvasData": { "x": 0, "y": 0, "group": 0 }
+    },
+    {
+      "id": "image-001",
+      "title": "主视觉插画",
+      "type": "image",
+      "version": 1,
+      "createdAt": 1782787100000,
+      "devMetadata": {
+        "imageSrc": "assets/hero-illustration.jpg"
+      },
+      "canvasData": { "x": 0, "y": 0 }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "NetOps Assistant 产品展示",
+    "designLibrary": null
+  }
+}

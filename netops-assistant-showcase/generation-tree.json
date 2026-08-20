@@ -1,0 +1,25 @@
+{
+  "root": {
+    "nodeId": "gen-project-shell",
+    "kind": "project-shell",
+    "pageIds": ["page-showcase"],
+    "output": "partials/project-shell.html",
+    "sharedRegions": ["nav", "footer"],
+    "privateRegions": [],
+    "mutableSlots": [],
+    "status": "planned",
+    "children": [
+      {
+        "nodeId": "gen-page-showcase",
+        "kind": "page-leaf",
+        "pageIds": ["page-showcase"],
+        "output": "pages/showcase.html",
+        "sharedRegions": [],
+        "privateRegions": ["hero", "features", "demo", "download", "contact"],
+        "mutableSlots": [],
+        "status": "planned",
+        "children": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetOps Assistant — 网络运维助手</title>
+    <style id="theme-vars">
+/* NetOps Assistant Showcase — Brand CSS */
+:root {
+  --brand-primary: #0f766e;
+  --brand-primary-light: #14b8a6;
+  --brand-primary-lighter: #ccfbf1;
+  --brand-primary-dark: #134e4a;
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f0fdfa;
+  --color-bg-tertiary: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --state-success: #059669;
+  --state-warning: #d97706;
+  --state-error: #dc2626;
+  --state-info: #0284c7;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.05);
+  --font-display: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+html.dark {
+  --brand-primary: #2dd4bf;
+  --brand-primary-light: #5eead4;
+  --brand-primary-lighter: #042f2e;
+  --brand-primary-dark: #99f6e4;
+  --color-bg: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #0f172a;
+  --color-surface: #1e293b;
+  --color-text: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.25);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--brand-primary);
+  }
+  @layer base {
+    body { background: var(--brand-background); color: var(--brand-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+        <!-- Sticky Navigation -->
+        <nav class="sticky top-0 z-50 border-b" style="border-color: var(--color-border); background: var(--color-bg);">
+            <div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
+                <a href="#" class="text-lg font-semibold whitespace-nowrap" style="color: var(--brand-primary); font-family: var(--font-display);">NetOps Assistant</a>
+                <div class="flex items-center gap-6">
+                    <a href="#features" class="text-sm whitespace-nowrap transition-colors duration-150 hover:text-[color:var(--brand-primary)]" style="color: var(--color-text-secondary);">功能特性</a>
+                    <a href="#demo" class="text-sm whitespace-nowrap transition-colors duration-150 hover:text-[color:var(--brand-primary)]" style="color: var(--color-text-secondary);">演示</a>
+                    <a href="#download" class="text-sm whitespace-nowrap transition-colors duration-150 hover:text-[color:var(--brand-primary)]" style="color: var(--color-text-secondary);">下载</a>
+                    <a href="#contact" class="text-sm whitespace-nowrap transition-colors duration-150 hover:text-[color:var(--brand-primary)]" style="color: var(--color-text-secondary);">联系方式</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="py-20 lg:py-28" style="background: var(--color-bg);">
+            <div class="mx-auto max-w-6xl px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+                    <div class="flex-1 min-w-0 text-center lg:text-left">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight tracking-tight" style="color: var(--color-text); font-family: var(--font-display); text-wrap: balance; word-break: keep-all; overflow-wrap: break-word;">NetOps Assistant</h1>
+                        <p class="mt-4 text-xl lg:text-2xl font-medium" style="color: var(--brand-primary); font-family: var(--font-display);">一站式网络运维管理工具</p>
+                        <p class="mt-6 text-base leading-relaxed max-w-xl mx-auto lg:mx-0" style="color: var(--color-text-secondary);">NetOps Assistant 是一款面向网络工程师的桌面运维工具，集成资产管理、终端连接、配置备份、拓扑可视化和批量命令执行等核心功能，帮助您高效管理网络设备，降低运维复杂度。</p>
+                        <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                            <a href="#download" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-3 text-sm font-semibold text-white transition-transform duration-150 hover:translate-y-[-1px] active:translate-y-0" style="background: var(--brand-primary); border-radius: var(--radius-md);" data-dom-id="cta-download">立即下载</a>
+                            <a href="#features" class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-6 py-3 text-sm font-semibold transition-colors duration-150" style="border: 1px solid var(--color-border); color: var(--color-text); border-radius: var(--radius-md); background: var(--color-surface);">了解更多</a>
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0 w-full lg:max-w-md">
+                        <img src="../assets/hero-illustration.jpg" alt="NetOps Assistant 界面展示" class="w-full rounded-lg" style="border-radius: var(--radius-lg); border: 1px solid var(--color-border-light);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 lg:py-24" style="background: var(--color-bg-secondary);">
+            <div class="mx-auto max-w-6xl px-6">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center" style="color: var(--color-text); font-family: var(--font-display); text-wrap: balance; word-break: keep-all;">核心功能</h2>
+                <p class="mt-4 text-base text-center max-w-2xl mx-auto" style="color: var(--color-text-secondary);">为网络工程师打造的全方位运维工具集，覆盖设备管理全生命周期</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Feature 1: 资产管理 -->
+                    <div class="group rounded-lg p-6 border transition-shadow duration-150 hover:translate-y-[-2px] hover:shadow-md" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full mb-4" style="background: var(--brand-primary-lighter); border-radius: var(--radius-full);">
+                            <i data-lucide="server" class="w-6 h-6" style="color: var(--brand-primary);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold truncate" style="color: var(--color-text);">资产管理</h3>
+                        <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">设备资产清单管理，支持增删改查操作，追踪 IP 地址、主机名和凭证信息，集中管理网络设备台账。</p>
+                    </div>
+
+                    <!-- Feature 2: 终端连接 -->
+                    <div class="group rounded-lg p-6 border transition-shadow duration-150 hover:translate-y-[-2px] hover:shadow-md" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full mb-4" style="background: var(--brand-primary-lighter); border-radius: var(--radius-full);">
+                            <i data-lucide="terminal" class="w-6 h-6" style="color: var(--brand-primary);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold truncate" style="color: var(--color-text);">终端连接</h3>
+                        <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">SSH / Telnet / 串口终端会话，支持 ANSI 颜色和多标签页管理，快速连接远程网络设备。</p>
+                    </div>
+
+                    <!-- Feature 3: 配置备份 -->
+                    <div class="group rounded-lg p-6 border transition-shadow duration-150 hover:translate-y-[-2px] hover:shadow-md" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full mb-4" style="background: var(--brand-primary-lighter); border-radius: var(--radius-full);">
+                            <i data-lucide="hard-drive-download" class="w-6 h-6" style="color: var(--brand-primary);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold truncate" style="color: var(--color-text);">配置备份</h3>
+                        <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">自动备份网络设备配置，支持定时任务和版本历史记录，确保配置变更可追溯、可回滚。</p>
+                    </div>
+
+                    <!-- Feature 4: 拓扑可视化 -->
+                    <div class="group rounded-lg p-6 border transition-shadow duration-150 hover:translate-y-[-2px] hover:shadow-md" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full mb-4" style="background: var(--brand-primary-lighter); border-radius: var(--radius-full);">
+                            <i data-lucide="network" class="w-6 h-6" style="color: var(--brand-primary);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold truncate" style="color: var(--color-text);">拓扑可视化</h3>
+                        <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">交互式网络拓扑图，直观展示设备连接关系与运行状态，快速定位网络架构中的关键节点。</p>
+                    </div>
+
+                    <!-- Feature 5: 批量命令 -->
+                    <div class="group rounded-lg p-6 border transition-shadow duration-150 hover:translate-y-[-2px] hover:shadow-md" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full mb-4" style="background: var(--brand-primary-lighter); border-radius: var(--radius-full);">
+                            <i data-lucide="play-circle" class="w-6 h-6" style="color: var(--brand-primary);"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold truncate" style="color: var(--color-text);">批量命令</h3>
+                        <p class="mt-2 text-sm leading-relaxed line-clamp-3" style="color: var(--color-text-secondary);">同时在多台设备上执行命令，自动汇总输出结果，大幅提升批量运维效率。</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Section -->
+        <section id="demo" class="py-20 lg:py-24" style="background: var(--color-bg);">
+            <div class="mx-auto max-w-6xl px-6">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center" style="color: var(--color-text); font-family: var(--font-display); text-wrap: balance; word-break: keep-all;">功能演示</h2>
+                <p class="mt-4 text-base text-center max-w-2xl mx-auto" style="color: var(--color-text-secondary);">直观了解 NetOps Assistant 的核心界面与操作体验</p>
+
+                <!-- Main mockup area -->
+                <div class="mt-12 mx-auto max-w-4xl rounded-lg border p-4" style="background: var(--color-bg-tertiary); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                    <!-- Simulated title bar -->
+                    <div class="flex items-center gap-2 mb-4 px-2">
+                        <span class="inline-flex items-center justify-center w-3 h-3 rounded-full" style="background: var(--color-text-muted); opacity: 0.3;"></span>
+                        <span class="inline-flex items-center justify-center w-3 h-3 rounded-full" style="background: var(--color-text-muted); opacity: 0.3;"></span>
+                        <span class="inline-flex items-center justify-center w-3 h-3 rounded-full" style="background: var(--color-text-muted); opacity: 0.3;"></span>
+                        <span class="ml-4 text-xs" style="color: var(--color-text-muted);">NetOps Assistant — 资产管理</span>
+                    </div>
+                    <!-- Simulated content area -->
+                    <div class="rounded-md border overflow-hidden" style="background: var(--color-surface); border-color: var(--color-border-light); border-radius: var(--radius-md);">
+                        <!-- Simulated toolbar -->
+                        <div class="flex items-center gap-3 px-4 py-3 border-b" style="border-color: var(--color-border-light);">
+                            <div class="h-6 rounded px-3 flex items-center" style="background: var(--color-bg-tertiary); width: 120px;"></div>
+                            <div class="h-6 rounded px-3 flex items-center" style="background: var(--brand-primary); width: 72px;"></div>
+                        </div>
+                        <!-- Simulated table -->
+                        <div class="px-4 py-2">
+                            <div class="grid grid-cols-4 gap-2 text-xs font-medium py-2 border-b" style="color: var(--color-text-muted); border-color: var(--color-border-light);">
+                                <span>主机名</span>
+                                <span>IP 地址</span>
+                                <span>设备类型</span>
+                                <span>状态</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 text-sm py-3 border-b" style="border-color: var(--color-border-light);">
+                                <span class="truncate" style="color: var(--color-text);">core-sw-01</span>
+                                <span class="truncate" style="color: var(--color-text-secondary);">10.0.1.1</span>
+                                <span class="truncate" style="color: var(--color-text-secondary);">交换机</span>
+                                <span class="inline-flex items-center justify-center rounded px-2 py-0.5 text-xs whitespace-nowrap" style="background: var(--brand-primary-lighter); color: var(--brand-primary); border-radius: var(--radius-sm);">在线</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 text-sm py-3 border-b" style="border-color: var(--color-border-light);">
+                                <span class="truncate" style="color: var(--color-text);">edge-rtr-02</span>
+                                <span class="truncate" style="color: var(--color-text-secondary);">10.0.2.1</span>
+                                <span class="truncate" style="color: var(--color-text-secondary);">路由器</span>
+                                <span class="inline-flex items-center justify-center rounded px-2 py-0.5 text-xs whitespace-nowrap" style="background: var(--brand-primary-lighter); color: var(--brand-primary); border-radius: var(--radius-sm);">在线</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 text-sm py-3" style="border-color: var(--color-border-light);">
+                                <span class="truncate" style="color: var(--color-text);">fw-prod-01</span>
+                                <span class="truncate" style="color: var(--color-text-secondary);">10.0.0.1</span>
+                                <span class="truncate" style="color: var(--color-text-secondary);">防火墙</span>
+                                <span class="inline-flex items-center justify-center rounded px-2 py-0.5 text-xs whitespace-nowrap" style="background: var(--brand-primary-lighter); color: var(--brand-primary); border-radius: var(--radius-sm);">在线</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thumbnail placeholders -->
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 mx-auto max-w-4xl">
+                    <div class="rounded-lg border flex items-center justify-center py-10 transition-colors duration-150 hover:border-[color:var(--brand-primary)]" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="text-center">
+                            <i data-lucide="layout-list" class="w-8 h-8 mx-auto mb-2" style="color: var(--color-text-muted);"></i>
+                            <span class="text-sm" style="color: var(--color-text-secondary);">资产管理界面</span>
+                        </div>
+                    </div>
+                    <div class="rounded-lg border flex items-center justify-center py-10 transition-colors duration-150 hover:border-[color:var(--brand-primary)]" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="text-center">
+                            <i data-lucide="terminal" class="w-8 h-8 mx-auto mb-2" style="color: var(--color-text-muted);"></i>
+                            <span class="text-sm" style="color: var(--color-text-secondary);">终端会话</span>
+                        </div>
+                    </div>
+                    <div class="rounded-lg border flex items-center justify-center py-10 transition-colors duration-150 hover:border-[color:var(--brand-primary)]" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                        <div class="text-center">
+                            <i data-lucide="network" class="w-8 h-8 mx-auto mb-2" style="color: var(--color-text-muted);"></i>
+                            <span class="text-sm" style="color: var(--color-text-secondary);">拓扑视图</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="py-20 lg:py-24" style="background: var(--color-bg-secondary);">
+            <div class="mx-auto max-w-6xl px-6">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center" style="color: var(--color-text); font-family: var(--font-display); text-wrap: balance; word-break: keep-all;">下载安装</h2>
+                <p class="mt-4 text-base text-center max-w-2xl mx-auto" style="color: var(--color-text-secondary);">快速部署，即刻开始高效运维</p>
+
+                <div class="mt-12 mx-auto max-w-md rounded-lg border p-8 text-center" style="background: var(--color-surface); border-color: var(--color-border); border-radius: var(--radius-lg);">
+                    <div class="inline-flex items-center justify-center rounded px-3 py-1 text-xs font-medium whitespace-nowrap mb-4" style="background: var(--brand-primary-lighter); color: var(--brand-primary); border-radius: var(--radius-sm);">v1.1 最新版本</span>
+                    <p class="text-sm mt-2" style="color: var(--color-text-secondary);">Windows 10/11 (x64)</p>
+                    <a href="#" class="mt-6 flex items-center justify-center w-full whitespace-nowrap rounded-md px-6 py-3 text-sm font-semibold text-white transition-transform duration-150 hover:translate-y-[-1px] active:translate-y-0" style="background: var(--brand-primary); border-radius: var(--radius-md);" data-dom-id="cta-download-page">下载 NetOps Assistant v1.1</a>
+                    <p class="mt-4 text-xs" style="color: var(--color-text-muted);">无需安装 Python 环境，解压即用</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact / Footer Section -->
+        <footer id="contact" class="py-12 lg:py-16 border-t" style="background: var(--color-bg); border-color: var(--color-border);">
+            <div class="mx-auto max-w-6xl px-6 text-center">
+                <h2 class="text-xl sm:text-2xl font-semibold" style="color: var(--color-text); font-family: var(--font-display);">联系我们</h2>
+                <p class="mt-4 text-sm" style="color: var(--color-text-secondary);">
+                    <a href="mailto:support@netops-assistant.com" class="transition-colors duration-150 hover:text-[color:var(--brand-primary)]">support@netops-assistant.com</a>
+                </p>
+                <div class="mt-6 flex items-center justify-center gap-6">
+                    <a href="#" class="inline-flex items-center gap-2 text-sm transition-colors duration-150 hover:text-[color:var(--brand-primary)]" style="color: var(--color-text-muted);" aria-label="GitHub">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" class="inline-flex items-center gap-2 text-sm transition-colors duration-150 hover:text-[color:var(--brand-primary)]" style="color: var(--color-text-muted);" aria-label="文档">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                        <span>文档</span>
+                    </a>
+                </div>
+                <p class="mt-8 text-xs" style="color: var(--color-text-muted);">2025 NetOps Assistant. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Custom styles for hover shadow -->
+        <style>
+            .group:hover {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+            @media (prefers-reduced-motion: reduce) {
+                *, *::before, *::after {
+                    transition-duration: 0.01ms !important;
+                    animation-duration: 0.01ms !important;
+                }
+            }
+        </style>
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

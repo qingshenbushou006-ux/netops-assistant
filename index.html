@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetOps Assistant - 网络运维资产管理工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f0f1a;
+            color: #e4e4f0;
+            line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid #252545;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #8888a8;
+            margin-bottom: 24px;
+        }
+        
+        .intro {
+            font-size: 1.05rem;
+            color: #b8b8d0;
+            line-height: 1.8;
+            padding: 24px 0;
+            border-bottom: 1px solid #252545;
+            margin-bottom: 32px;
+        }
+        
+        .section {
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #e0e0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title .icon {
+            font-size: 1.4rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .feature-card {
+            background: #1a1a2e;
+            border: 1px solid #252545;
+            border-radius: 14px;
+            padding: 20px 18px;
+            transition: all 0.25s ease;
+        }
+        .feature-card:hover {
+            border-color: #4facfe;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.12);
+        }
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #d0d0e8;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #9090b0;
+            line-height: 1.5;
+        }
+        
+        .demo-area {
+            background: #1a1a2e;
+            border: 1px solid #252545;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .demo-gif {
+            width: 100%;
+            max-width: 900px;
+            height: 420px;
+            background: #252545;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6060a0;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        .demo-gif.placeholder-mode::before {
+            content: "🎬";
+            font-size: 5rem;
+            opacity: 0.4;
+        }
+        
+        .download-box {
+            background: #1a1a2e;
+            border: 1px solid #252545;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .download-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+        .download-info p {
+            font-size: 0.95rem;
+            color: #9090b0;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #0f0f1a;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .download-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 24px rgba(79, 172, 254, 0.35);
+        }
+        
+        .contact-area {
+            background: #1a1a2e;
+            border: 1px solid #252545;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .contact-area h2 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+        .contact-area ul {
+            list-style: none;
+        }
+        .contact-area li {
+            margin-bottom: 8px;
+            color: #b0b0d0;
+            font-size: 1rem;
+        }
+        .contact-area li a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+        .contact-area li a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            color: #6060a0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>NetOps Assistant</h1>
+            <div class="subtitle">网络运维资产管理工具</div>
+        </div>
+
+        <div class="intro">
+            NetOps Assistant 是一款面向运维工程师的桌面工具，将网络设备资产管理与 SSH 调试深度融合。以设备资产为中心，统一承载分组、标签、在线巡检、备份管理、拓扑发现与批量命令下发；双击设备即可连接目标 CLI，最大程度减少跨工具操作开销，让排查、变更和资产维护的运行态更互联。
+        </div>
+
+        <div class="section">
+            <div class="section-title"><span class="icon">⚡</span> 全功能列表</div>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>资产</h3>
+                    <p>增删改查、分组管理、搜索过滤、Tag 标签，支持 CSV 导入导出；资产视图驱动后续所有运维动作。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>终端</h3>
+                    <p>内置交互式 SSH 终端，支持多标签页、快速命令、ANSI 渲染、Ctrl+C/D 等常见控制，所见即所得。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>备份</h3>
+                    <p>一键执行配置备份，定时任务保存，历史版本可对比；把设备回退所需的依据沉淀为可检索记录。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>拓扑</h3>
+                    <p>基于 LLDP/CDP 自动发现网络拓扑，可视化编辑链路，支持圆形、网格布局，方便做变更影响面判断。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>批量命令</h3>
+                    <p>通过资产树选择目标，把同一套命令按设备批量下发，减少重复粘贴与重复登录。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>在线检测</h3>
+                    <p>Ping + 端口双重校验，一键刷新设备在线状态，列表颜色直观突出故障节点。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title"><span class="icon">🎥</span> 演示动图</div>
+            <div class="demo-area">
+                <div class="demo-gif placeholder-mode" id="demoGif">
+                    （此处放实际演示动图 / GIF）
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="download-box">
+                <div class="download-info">
+                    <h3>立即下载</h3>
+                    <p>支持 Windows 10/11，Python 3.10+，exe 独立运行或源码启动。</p>
+                </div>
+                <a class="download-btn" href="https://example.com/download/netops-assistant.zip" target="_blank" rel="noopener">
+                    下载最新版本
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="contact-area">
+                <h2>📬 联系方式</h2>
+                <ul>
+                    <li>邮箱：<a href="mailto:891531981@qq.com">891531981@qq.com</a></li>
+                    <li>GitHub：<a href="https://github.com/example/netops-assistant" target="_blank" rel="noopener">https://github.com/example/netops-assistant</a></li>
+                    <li>问题反馈：<a href="https://github.com/example/netops-assistant/issues" target="_blank" rel="noopener">提交 Issue</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            NetOps Assistant v1.1 · 网络运维资产管理工具
+        </div>
+    </div>
+</body>
+</html>

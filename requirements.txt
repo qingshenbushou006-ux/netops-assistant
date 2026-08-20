@@ -1,0 +1,6 @@
+pyside6>=6.6.0
+paramiko==3.4.1
+pyte>=0.8.2
+cryptography==42.0.8
+networkx>=3.0
+pyserial>=3.5
