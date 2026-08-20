@@ -240,22 +240,22 @@ class TopologyManager:
             # Device ID
             device_match = re.search(r'Device ID:\s*(.+)', line)
             if device_match:
-                if current_device:
+                if current_device and "local_intf" in current_device:
                     neighbors.append(LLDPNeighbor(
-                        current_device.get("local_intf", ""),
-                        current_device.get("remote_intf", ""),
-                        current_device.get("name", "")
+                        current_device["local_intf"],
+                        current_device["remote_intf"],
+                        current_device["name"]
                     ))
                 current_device = {"name": device_match.group(1).strip()}
                 continue
 
             # Interface
             intf_match = re.search(
-                r'Interface:\s*(\S+).*Port ID.*:\s*(\S+)', line
+                r'Interface:\s*(\S+?)[,\s].*Port ID.*:\s*(\S+)', line
             )
             if intf_match and current_device:
-                current_device["local_intf"] = intf_match.group(1)
-                current_device["remote_intf"] = intf_match.group(2)
+                current_device["local_intf"] = intf_match.group(1).rstrip(",")
+                current_device["remote_intf"] = intf_match.group(2).rstrip(",")
 
         # 最后一个设备
         if current_device and "local_intf" in current_device:
