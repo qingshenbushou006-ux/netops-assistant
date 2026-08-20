@@ -505,10 +505,47 @@ class TopologyManager:
 
         return {"nodes": nodes, "edges": edges}
 
-    def export_topology(self, file_path: str) -> bool:
-        """导出拓扑到JSON文件"""
+    def get_topology_data_full(self) -> Dict:
+        """
+        获取完整拓扑数据（含设备完整信息，用于导出后重新导入）
+        """
+        assets = db.get_all_assets()
+        links = db.get_all_topology_links()
+
+        # 导出全部资产字段（除自增 id 和时间戳）
+        export_fields = [
+            "name", "ip", "port", "protocol", "vendor", "model",
+            "username", "password", "enable_password",
+            "serial_port", "baud_rate", "data_bits", "parity", "stop_bits", "flow_control",
+            "group_id", "location", "tags", "notes",
+        ]
+        nodes = []
+        for asset in assets:
+            node = {k: asset.get(k, "") for k in export_fields}
+            node["group_name"] = asset.get("group_name", "")
+            nodes.append(node)
+
+        edges = []
+        for link in links:
+            edges.append({
+                "source_name": link.get("src_name", ""),
+                "target_name": link.get("dst_name", ""),
+                "source_intf": link.get("src_interface", ""),
+                "target_intf": link.get("dst_interface", ""),
+                "link_type": link.get("link_type", "ethernet"),
+                "bandwidth": link.get("bandwidth", ""),
+            })
+
+        return {"nodes": nodes, "edges": edges}
+
+    def export_topology(self, file_path: str, full: bool = True) -> bool:
+        """导出拓扑到JSON文件
+
+        full=True: 导出设备完整信息（可重新导入创建资产）
+        full=False: 仅导出节点名/IP/边（轻量，适合当图纸）
+        """
         try:
-            data = self.get_topology_data()
+            data = self.get_topology_data_full() if full else self.get_topology_data()
             with open(file_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
             return True
@@ -516,8 +553,13 @@ class TopologyManager:
             return False
 
     def import_topology(self, file_path: str,
-                        allowed_asset_ids: Optional[Set[int]] = None) -> Tuple[bool, str]:
-        """从JSON文件导入拓扑"""
+                        allowed_asset_ids: Optional[Set[int]] = None,
+                        create_missing_assets: bool = True) -> Tuple[bool, str]:
+        """从JSON文件导入拓扑
+
+        create_missing_assets=True: 节点设备不存在时自动创建资产
+        create_missing_assets=False: 仅导入已有设备间的链路（旧行为）
+        """
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -526,15 +568,85 @@ class TopologyManager:
             duplicates = 0
             invalid = 0
             skipped = 0
+            created_assets = 0
 
+            # 第一步：解析节点 → asset_id
+            # 先尝试按 name 匹配，再按 ip 匹配
+            existing_by_name = {}
+            existing_by_ip = {}
+            for a in db.get_all_assets():
+                existing_by_name[a["name"]] = a["id"]
+                if a["ip"]:
+                    existing_by_ip[a["ip"]] = a["id"]
+
+            name_to_id = {}
+
+            for node in data.get("nodes", []):
+                name = node.get("name", "").strip()
+                ip = node.get("ip", "").strip()
+
+                if not name:
+                    continue
+
+                # 已存在？
+                if name in existing_by_name:
+                    name_to_id[name] = existing_by_name[name]
+                    continue
+                if ip and ip in existing_by_ip:
+                    name_to_id[name] = existing_by_ip[ip]
+                    continue
+
+                # 不允许创建资产
+                if not create_missing_assets:
+                    continue
+
+                # 创建新资产
+                try:
+                    asset_id = db.add_asset(
+                        name=name,
+                        ip=ip,
+                        port=int(node.get("port", 22) or 22),
+                        protocol=node.get("protocol", "ssh"),
+                        vendor=node.get("vendor", ""),
+                        model=node.get("model", ""),
+                        username=node.get("username", ""),
+                        password=node.get("password", ""),
+                        enable_password=node.get("enable_password", ""),
+                        serial_port=node.get("serial_port", ""),
+                        baud_rate=int(node.get("baud_rate", 9600) or 9600),
+                        data_bits=int(node.get("data_bits", 8) or 8),
+                        parity=node.get("parity", "N"),
+                        stop_bits=int(node.get("stop_bits", 1) or 1),
+                        flow_control=node.get("flow_control", "none"),
+                        location=node.get("location", ""),
+                        tags=node.get("tags", ""),
+                        notes=node.get("notes", ""),
+                    )
+                    name_to_id[name] = asset_id
+                    created_assets += 1
+                    existing_by_name[name] = asset_id
+                    if ip:
+                        existing_by_ip[ip] = asset_id
+                except Exception:
+                    invalid += 1
+
+            # 第二步：导入边
             for edge in data.get("edges", []):
+                src_name = edge.get("source_name", "").strip()
+                dst_name = edge.get("target_name", "").strip()
+
+                # 兼容旧格式 source/target（数字 id 或字符串名）
                 source = edge.get("source", edge.get("src"))
                 target = edge.get("target", edge.get("dst"))
+
+                if src_name and src_name in name_to_id:
+                    source = name_to_id[src_name]
+                elif dst_name and dst_name in name_to_id:
+                    target = name_to_id[dst_name]
 
                 if isinstance(source, str):
                     asset = self._find_asset_by_name_or_ip(source)
                     source = asset["id"] if asset else None
-
                 if isinstance(target, str):
                     asset = self._find_asset_by_name_or_ip(target)
                     target = asset["id"] if asset else None
@@ -562,6 +674,8 @@ class TopologyManager:
                     duplicates += 1
 
             message = f"成功导入 {imported} 条链路"
+            if created_assets:
+                message += f"\n新增 {created_assets} 台设备"
             if duplicates:
                 message += f"\n跳过 {duplicates} 条重复链路"
             if invalid:

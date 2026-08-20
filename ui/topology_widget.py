@@ -2062,35 +2062,24 @@ class TopologyWidget(QWidget):
                             Qt.KeepAspectRatio)
 
     def _export(self):
-        path, _ = QFileDialog.getSaveFileName(self, "Export", "topology.json", "JSON (*.json)")
+        path, _ = QFileDialog.getSaveFileName(
+            self, "导出拓扑", "topology.json",
+            "拓扑文件 (*.json)"
+        )
         if not path:
             return
 
-        assets = self._current_assets()
-        links = self._current_links()
-        data = {
-            "location": self.current_location,
-            "nodes": [{
-                "id": a["id"],
-                "name": a["name"],
-                "ip": a["ip"],
-                "location": a.get("location", ""),
-            } for a in assets],
-            "edges": [{
-                "src": l["src_asset_id"],
-                "dst": l["dst_asset_id"],
-                "source_intf": l.get("src_interface", ""),
-                "target_intf": l.get("dst_interface", ""),
-                "link_type": l.get("link_type", "ethernet"),
-                "bandwidth": l.get("bandwidth", ""),
-            } for l in links]
-        }
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-        QMessageBox.information(self, "成功", f"已导出到:\n{path}")
+        mgr = TopologyManager()
+        ok = mgr.export_topology(path, full=True)
+        if ok:
+            QMessageBox.information(self, "成功", f"已导出到:\n{path}")
+        else:
+            QMessageBox.critical(self, "错误", "导出失败")
 
     def _import(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Import", "", "JSON (*.json)")
+        path, _ = QFileDialog.getOpenFileName(
+            self, "导入拓扑", "", "拓扑文件 (*.json)"
+        )
         if not path:
             return
 
@@ -2098,9 +2087,14 @@ class TopologyWidget(QWidget):
         if self.current_location != "全部站点":
             allowed_ids = {asset["id"] for asset in self._current_assets()}
 
-        success, message = TopologyManager().import_topology(path, allowed_ids)
+        success, message = TopologyManager().import_topology(
+            path, allowed_ids, create_missing_assets=True
+        )
         if success:
             self._refresh()
+            QMessageBox.information(self, "成功", message)
+        else:
+            QMessageBox.critical(self, "错误", message)
             QMessageBox.information(self, "成功", message)
         else:
             QMessageBox.critical(self, "错误", message)
