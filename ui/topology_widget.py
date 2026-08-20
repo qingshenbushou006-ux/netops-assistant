@@ -696,6 +696,7 @@ class TopologyView(QGraphicsView):
     editLinkRequested = Signal(dict)
     deleteLinkRequested = Signal(dict)
     deleteNodeLinksRequested = Signal(int)
+    connectRequested = Signal(int)
 
     COLLAPSE_THRESHOLD = 200
     GRID_SIZE = 20
@@ -954,6 +955,18 @@ class TopologyView(QGraphicsView):
             self._scene.removeItem(self._marquee_rect_item)
             self._marquee_rect_item = None
         self._marquee_start = None
+
+    def mouseDoubleClickEvent(self, event):
+        """双击节点 -> 连接设备"""
+        if event.button() != Qt.LeftButton:
+            super().mouseDoubleClickEvent(event)
+            return
+        scene_pos = self.mapToScene(event.pos())
+        node = self._find_node_at(scene_pos)
+        if node is not None:
+            self.connectRequested.emit(node.asset_id)
+            return
+        super().mouseDoubleClickEvent(event)
 
     def mousePressEvent(self, event):
         scene_pos = self.mapToScene(event.pos())

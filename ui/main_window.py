@@ -827,8 +827,10 @@ class MainWindow(QMainWindow):
         self._topology_window.setAttribute(Qt.WA_DeleteOnClose)
 
         layout = QVBoxLayout(self._topology_window)
-        topology_widget = TopologyWidget()
-        layout.addWidget(topology_widget)
+        self._topology_widget = TopologyWidget()
+        layout.addWidget(self._topology_widget)
+        # 双击拓扑节点 -> 连接设备
+        self._topology_widget.view.connectRequested.connect(self._on_connect)
 
         self._topology_window.show()
 
